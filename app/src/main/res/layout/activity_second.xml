@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cpsdbd.scenetransition.SecondActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_container">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/test"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/image"
+            />
+
+        <!--<Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="click"
+            android:id="@+id/im_click"
+            android:layout_below="@+id/image"/>-->
+
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/transition_container">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="click me to view text"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/click"
+            android:onClick="click_me"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/click"
+            android:text="@string/dummy_text"
+            android:id="@+id/my_text"
+            android:textSize="22sp"
+            android:gravity="start"
+            android:visibility="gone"
+            android:textColor="#0000ff"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

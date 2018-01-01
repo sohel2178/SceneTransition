@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn1"
+        android:src="@drawable/shape_1"
+        android:background="#00000000"
+        android:contentDescription="shape"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:onClick="changeScene"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn2"
+        android:src="@drawable/shape_2"
+        android:background="#00000000"
+        android:contentDescription="shape"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:onClick="changeScene"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn3"
+        android:src="@drawable/shape_3"
+        android:background="#00000000"
+        android:contentDescription="shape"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:onClick="changeScene"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn4"
+        android:src="@drawable/shape_4"
+        android:background="#00000000"
+        android:contentDescription="shape"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:onClick="changeScene"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/button_container"
+        android:layout_centerInParent="true">
+
+        <Button
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/click"
+            android:text="next"
+            android:onClick="next"/>
+
+        <Button
+            android:layout_gravity="bottom|end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/change_position"
+            android:text="change position" />
+
+    </FrameLayout>
+
+
+
+</RelativeLayout>
