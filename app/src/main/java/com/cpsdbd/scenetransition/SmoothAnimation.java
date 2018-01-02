@@ -1,61 +1,53 @@
 package com.cpsdbd.scenetransition;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.ArcMotion;
 import android.transition.ChangeBounds;
-import android.transition.ChangeImageTransform;
-import android.transition.ChangeTransform;
-import android.transition.Fade;
 import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.transition.TransitionSet;
-import android.transition.TransitionValues;
-import android.transition.Visibility;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SecondActivity extends AppCompatActivity implements View.OnClickListener{
+public class SmoothAnimation extends AppCompatActivity implements View.OnClickListener {
+
     private TextView myText;
-
-    private boolean isVisible;
-    private boolean expanded;
-
+    private ImageView btnClick;
     private ViewGroup transitionContainer;
 
-    private ViewGroup imageContainer;
-    private ImageView ivImage;
+    private boolean isVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_smooth_animation);
 
-        transitionContainer = findViewById(R.id.transition_container);
-        imageContainer = findViewById(R.id.image_container);
+        transitionContainer = findViewById(R.id.bottom_container);
         myText = findViewById(R.id.my_text);
-        ivImage = findViewById(R.id.image);
-        ivImage.setOnClickListener(this);
+        btnClick = findViewById(R.id.click);
+        btnClick.setOnClickListener(this);
     }
 
-    public void click_me(View view) {
-        /*Transition traslate = new Slide(Gravity.LEFT);
-        traslate.setDuration(700);
-        traslate.setInterpolator(new FastOutSlowInInterpolator());*/
-
+    @Override
+    public void onClick(View view) {
         isVisible = !isVisible;
 
+        // Declare a Transition for Button
+        Transition btnTr = new ChangeBounds();
+        btnTr.setPathMotion(new ArcMotion());
 
         Transition transition = new TransitionSet()
+
                 .addTransition(isVisible? new Slide(Gravity.BOTTOM) : new Slide(Gravity.BOTTOM))
+                .addTransition(btnTr)
                 .addListener(new Transition.TransitionListener() {
                     @Override
                     public void onTransitionStart(Transition transition) {
@@ -88,36 +80,20 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 });
 
+
         TransitionManager.beginDelayedTransition(transitionContainer,transition);
         myText.setVisibility(isVisible ? View.VISIBLE:View.INVISIBLE);
 
+        // Change Button Property
+        FrameLayout.LayoutParams param = (FrameLayout.LayoutParams) btnClick.getLayoutParams();
 
-    }
 
-    @Override
-    public void onClick(View view) {
-        TransitionManager.beginDelayedTransition(imageContainer, new TransitionSet()
-                .addTransition(new ChangeBounds())
-                .addTransition(new ChangeImageTransform()));
+        param.gravity = isVisible ? (Gravity.CENTER_HORIZONTAL|Gravity.TOP) : (Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM);
 
-        ViewGroup.LayoutParams params = ivImage.getLayoutParams();
+        int resource = isVisible ? R.drawable.down : R.drawable.up;
 
-        Log.d("HHH",params.height+"");
-        Log.d("HHH",params.width+"");
+        btnClick.setLayoutParams(param);
+        btnClick.setImageResource(resource);
 
-        expanded=!expanded;
-
-        params.height = expanded ? ViewGroup.LayoutParams.MATCH_PARENT :
-                ViewGroup.LayoutParams.WRAP_CONTENT;
-
-        params.width = expanded ? ViewGroup.LayoutParams.MATCH_PARENT :
-                ViewGroup.LayoutParams.WRAP_CONTENT;
-
-        // Change the Layout Param
-        ivImage.setLayoutParams(params);
-
-        // Change Scale Type
-        ivImage.setScaleType(expanded ? ImageView.ScaleType.CENTER_CROP :
-                ImageView.ScaleType.FIT_CENTER);
     }
 }

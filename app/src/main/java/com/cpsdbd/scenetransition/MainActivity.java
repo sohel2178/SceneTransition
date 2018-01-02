@@ -12,6 +12,7 @@ import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,9 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+
+import com.cpsdbd.scenetransition.MyScene.MyScene1;
+import com.cpsdbd.scenetransition.MyScene.MyScene2;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     //scenes to transition
@@ -33,18 +37,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private FrameLayout btnContainer;
 
+    private MyScene1 myScene1;
+    private MyScene2 myScene2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-
-
         //get the layout ID
         RelativeLayout baseLayout = findViewById(R.id.root_container);
 
+        myScene1 = new MyScene1(this, baseLayout);
 
-//first scene
+        myScene1.getScene().enter();
+
+        myScene2 = new MyScene2(this, baseLayout);
+
+
+/*//first scene
         ViewGroup startViews = (ViewGroup)getLayoutInflater()
                 .inflate(R.layout.layout_scene_1, baseLayout, false);
 
@@ -67,24 +77,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transition.setInterpolator(new AccelerateDecelerateInterpolator());
 
 //initialize flag
-        start=true;
+        start=true;*/
     }
 
-    public void changeScene(View view) {
+    /*public void changeScene(View view) {
         //check flag
         if(start) {
             TransitionManager.go(scene2, transition);
-           /* scene1.exit();
-            scene2.enter();*/
+            scene1.exit();
+            scene2.enter();
             start=false;
         }
         else {
-            /*scene2.exit();
-            scene1.enter();*/
+            scene2.exit();
+            scene1.enter();
             TransitionManager.go(scene1, transition);
             start=true;
         }
-    }
+    }*/
 
     public void next(View view) {
         startActivity(new Intent(getApplicationContext(),SecondActivity.class));
@@ -93,13 +103,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+
+            //Scene1 Control
+
+            case R.id.btn1:
+                TransitionManager.go(myScene2.getScene(),myScene1.getTransition());
+
+            case R.id.smooth:
+                startActivity(new Intent(getApplicationContext(),SmoothAnimation.class));
+
             case R.id.change_position:
-                changePosition();
+                //changePosition();
                 break;
         }
     }
 
-    private void changePosition() {
+   /* private void changePosition() {
 
         Transition transition = new ChangeBounds();
         transition.setPathMotion(new ArcMotion());
@@ -114,5 +133,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         param.gravity = isBottom ? (Gravity.END|Gravity.BOTTOM) : (Gravity.START|Gravity.TOP);
 
         btnChangePosition.setLayoutParams(param);
-    }
+    }*/
 }
